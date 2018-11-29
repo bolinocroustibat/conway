@@ -88,6 +88,7 @@ function ConwayBuildNextMatrix(currentMatrix) {
 		for (let j = 0; j < currentMatrix[i].length; j++) {
 			// gather all neighbors info
 			var neighborsArray = [];
+			// top neighbors
 			if (currentMatrix[i-1]) {
 				if (currentMatrix[i-1][j-1] && currentMatrix[i-1][j-1]==true) {
 					neighborsArray.push(true);
@@ -99,15 +100,14 @@ function ConwayBuildNextMatrix(currentMatrix) {
 					neighborsArray.push(true);
 				}
 			}
+			// left and right neighbors
 			if (currentMatrix[i][j-1] && currentMatrix[i][j-1]==true) {
-				neighborsArray.push(true);
-			}
-			if (currentMatrix[i][j] && currentMatrix[i][j]==true) {
 				neighborsArray.push(true);
 			}
 			if (currentMatrix[i][j+1] && currentMatrix[i][j+1]==true) {
 				neighborsArray.push(true);
 			}
+			// down neighbors
 			if (currentMatrix[i+1]) {
 				if (currentMatrix[i+1][j-1] && currentMatrix[i+1][j-1]==true) {
 					neighborsArray.push(true);
