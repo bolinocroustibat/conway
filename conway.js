@@ -8,7 +8,7 @@ function ConwayGenerateTable(nb_rows, nb_cols, black_probability) {
 		existing_conway_table.parentNode.removeChild(existing_conway_table);
 	}
 	// creates a <table_conway> element and style it
-	var table_conway = document.createElement("table");
+	let table_conway = document.createElement("table");
 	table_conway.setAttribute("id", "table_conway");
 	table_conway.style.margin = "0 auto 0 auto";
 	table_conway.style.borderCollapse = "collapse";
@@ -26,13 +26,20 @@ function ConwayGenerateTable(nb_rows, nb_cols, black_probability) {
 			cell.style.border = "1px solid black";
 			cell.style.width = '5px';
 			cell.style.height = '5px';
-			if(black_probability) {
+			// random populating
+			if (black_probability) {
 				Math.random() >= black_probability ? cell.style.backgroundColor = "white" : cell.style.backgroundColor = "black";
 			}
+			// manual populating
+			cell.onclick = function () {
+				console.log("cell " + i + " , " + j);
+				if (cell.style.backgroundColor = "white") cell.style.backgroundColor = "black";
+				else cell.style.backgroundColor = "white";
+			};
+			// add cell to row
 			row.appendChild(cell);
 		}
-		// add the row to the end of the table_conway article
-		// table_conwayBody.appendChild(row);
+		// add row to table
 		table_conway.appendChild(row);
 	}
 	// appends <table_conway> into <article>
@@ -50,7 +57,7 @@ function ConwayLoop(matrix, maxIterations, i){
 	ConwayDrawTableFromMatrix(matrix);
 	conwayTimeout = setTimeout(function() {
 		ConwayLoop(matrix, maxIterations, i)
-	}, 1000);
+	}, 100);
 	if (i == undefined) {
 		var i = 0;
 	}
@@ -61,7 +68,7 @@ function ConwayLoop(matrix, maxIterations, i){
 }
 
 function ConwayBuildCurrentMatrix() {
-	var currentMatrix = [];
+	let currentMatrix = [];
 	let table_conway = document.getElementById("table_conway");
 	let nb_rows = table_conway.rows.length;
 	let nb_cols = table_conway.rows[0].cells.length;
@@ -80,7 +87,7 @@ function ConwayBuildCurrentMatrix() {
 }
 
 function ConwayBuildNextMatrix(currentMatrix) {
-	var nextMatrix = [];
+	let nextMatrix = [];
 	// for each cell
 	for (let i = 0; i < currentMatrix.length; i++) {
 		nextMatrix.push([]);
@@ -139,7 +146,7 @@ function ConwayDrawTableFromMatrix(matrix) {
 		existing_conway_table.parentNode.removeChild(existing_conway_table);
 	}
 	// creates a <table_conway> element and style it
-	var table_conway = document.createElement("table");
+	let table_conway = document.createElement("table");
 	table_conway.setAttribute("id", "table_conway");
 	table_conway.style.margin = "0 auto 0 auto";
 	table_conway.style.borderCollapse = "collapse";
@@ -164,7 +171,10 @@ function ConwayDrawTableFromMatrix(matrix) {
 			}
 			row.appendChild(cell);
 		}
+		table_conway.appendChild(row);
 	}
+	// appends <table_conway> into <article>
+	document.getElementById("article_conway").appendChild(table_conway);
 }
 
 // STOP LOOP (MARCHE PAS, CHANGE L'ALGO !!)
