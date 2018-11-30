@@ -1,6 +1,6 @@
 function ConwayGenerateTable(nb_rows, nb_cols, black_probability) {
-	if (!(typeof interval === 'undefined' || interval === null)) {
-		clearInterval(interval);
+	if (!(typeof conwayTimeout === 'undefined' || conwayTimeout === null)) {
+		clearTimeout(conwayTimeout);
 	}
 	// if there is already a table conway_table, removes it
 	let existing_conway_table = document.getElementById("table_conway");
@@ -39,26 +39,25 @@ function ConwayGenerateTable(nb_rows, nb_cols, black_probability) {
 	document.getElementById("article_conway").appendChild(table_conway);
 }
 
-function ConwayStart(max_iterations){
-	let currentMatrix = ConwayBuildCurrentMatrix();
-	ConwayLoop(currentMatrix, max_iterations);
+function ConwayStart(maxIterations){
+	let startMatrix = ConwayBuildCurrentMatrix();
+	ConwayLoop(startMatrix, maxIterations);
 }
 
 // LOOP
-function ConwayLoop(matrix, max_iterations){
-	let etat_boucle = 0;
-	let timeout = null;
-	switch(etat_boucle){
-		case 0:
-			clearTimeout(timeout);
-			matrix = ConwayBuildNextMatrix(matrix);
-			timeout = setTimeout("Loop(matrix, max_iterations)", 2000);
-			ConwayDrawTableFromMatrix(matrix);
-			etat_boucle = 0;
-		break;
-		default:
-		break;
+function ConwayLoop(matrix, maxIterations, i){
+	matrix = ConwayBuildNextMatrix(matrix);
+	ConwayDrawTableFromMatrix(matrix);
+	conwayTimeout = setTimeout(function() {
+		ConwayLoop(matrix, maxIterations, i)
+	}, 1000);
+	if (i == undefined) {
+		var i = 0;
 	}
+	else {
+		i++;
+	}
+	if (maxIterations && i>=maxIterations) clearTimeout(conwayTimeout);
 }
 
 function ConwayBuildCurrentMatrix() {
@@ -170,7 +169,7 @@ function ConwayDrawTableFromMatrix(matrix) {
 
 // STOP LOOP (MARCHE PAS, CHANGE L'ALGO !!)
 function ConwayStop() {
-	if (!(typeof interval === 'undefined' || interval === null)) {
-		clearInterval(interval);
+	if (!(typeof conwayTimeout === 'undefined' || conwayTimeout === null)) {
+		clearTimeout(conwayTimeout);
 	}
 }
