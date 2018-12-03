@@ -10,8 +10,6 @@ function ConwayGenerateTable(nb_rows, nb_cols, black_probability) {
 	// creates a <table_conway> element and style it
 	let table_conway = document.createElement("table");
 	table_conway.setAttribute("id", "table_conway");
-	table_conway.style.margin = "0 auto 0 auto";
-	table_conway.style.borderCollapse = "collapse";
 	// creating all cells
 	for (let i = 0; i < nb_rows; i++) {
 		// creates a table_conway row
@@ -24,8 +22,8 @@ function ConwayGenerateTable(nb_rows, nb_cols, black_probability) {
 			let cellText = document.createTextNode(" ");
 			cell.appendChild(cellText);
 			cell.style.border = "1px solid black";
-			cell.style.width = '5px';
-			cell.style.height = '5px';
+			cell.style.width = '4px';
+			cell.style.height = '4px';
 			// random populating
 			if (black_probability) {
 				Math.random() >= black_probability ? cell.style.backgroundColor = "white" : cell.style.backgroundColor = "black";
@@ -52,19 +50,17 @@ function ConwayStart(maxIterations){
 }
 
 // LOOP
-function ConwayLoop(matrix, maxIterations, i){
+function ConwayLoop(matrix, maxIterations=30, i=0){
 	matrix = ConwayBuildNextMatrix(matrix);
 	ConwayDrawTableFromMatrix(matrix);
 	conwayTimeout = setTimeout(function() {
 		ConwayLoop(matrix, maxIterations, i)
-	}, 100);
-	if (i == undefined) {
-		var i = 0;
-	}
-	else {
-		i++;
-	}
-	if (maxIterations && i>=maxIterations) clearTimeout(conwayTimeout);
+	}, 10);
+	// console.log("##########")
+	// console.log(maxIterations)
+	// console.log("ITERATION " + i);
+	if (i>=maxIterations) clearTimeout(conwayTimeout);
+	i++;
 }
 
 function ConwayBuildCurrentMatrix() {
@@ -83,6 +79,8 @@ function ConwayBuildCurrentMatrix() {
 			}
 		}
 	}
+	// console.log("CURRENT SITUATION :");
+	// console.log(currentMatrix);
 	return currentMatrix;
 }
 
@@ -125,14 +123,19 @@ function ConwayBuildNextMatrix(currentMatrix) {
 					neighborsArray.push(true);
 				}
 			}
+			// console.log("row " + i + " | column " + j);
+			// console.log(neighborsArray);
 			// analyse neighbors info
 			let nb_true = neighborsArray.filter(Boolean).length;
 			// change the nextTable according to the neighbors
-			if (nb_true < 2 || nb_true > 3) { // death of the cell
+			if (currentMatrix[i][j]==true && (nb_true < 2 || nb_true > 3)) { // death of an an alive cell
 				nextMatrix[i].push(false);
 			}
-			else { // birth or survival of the cell
+			else if (currentMatrix[i][j] == false && nb_true == 3) { // birth of a cell
 				nextMatrix[i].push(true);
+			}
+			else { // keep the same cell
+				nextMatrix[i].push(currentMatrix[i][j]);
 			}
 		}
 	}
@@ -161,8 +164,8 @@ function ConwayDrawTableFromMatrix(matrix) {
 			let cellText = document.createTextNode(" ");
 			cell.appendChild(cellText);
 			cell.style.border = "1px solid black";
-			cell.style.width = '5px';
-			cell.style.height = '5px';
+			cell.style.width = '4px';
+			cell.style.height = '4px';
 			if (matrix[i][j] == true) {
 				cell.style.backgroundColor = "black";
 			}
