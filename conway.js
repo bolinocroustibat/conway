@@ -1,3 +1,5 @@
+let conwayTimeout;
+
 function ConwayGenerateTable(nb_rows, nb_cols, black_probability) {
 	if (!(typeof conwayTimeout === 'undefined' || conwayTimeout === null)) {
 		clearTimeout(conwayTimeout);
@@ -22,9 +24,7 @@ function ConwayGenerateTable(nb_rows, nb_cols, black_probability) {
 			cell.setAttribute("id", i + "-" + j);
 			// let cellText = document.createTextNode(" ");
 			// cell.appendChild(cellText);
-			cell.style.border = "1px solid black";
-			cell.style.width = '4px';
-			cell.style.height = '4px';
+			cell.style.backgroundColor = 'white';
 			// random populating
 			if (black_probability) {
 				Math.random() >= black_probability ? cell.style.backgroundColor = "white" : cell.style.backgroundColor = "black";
@@ -32,8 +32,7 @@ function ConwayGenerateTable(nb_rows, nb_cols, black_probability) {
 			// manual populating
 			cell.onclick = function () {
 				console.log("cell " + i + " , " + j);
-				if (cell.style.backgroundColor = "white") cell.style.backgroundColor = "black";
-				else cell.style.backgroundColor = "white";
+				cell.style.backgroundColor = "white" ? cell.style.backgroundColor = "black" : cell.style.backgroundColor = "white";
 			};
 			// add cell to row
 			row.appendChild(cell);
@@ -144,22 +143,21 @@ function ConwayBuildNextMatrix(currentMatrix) {
 }
 
 function ConwayDrawTableFromMatrix(matrix) {
-	console.log(document.getElementById("table_conway")); // TEST
+	//console.log(document.getElementById("table_conway")); // TEST
+	console.log(matrix)
 	for (let i = 0; i < matrix.length; i++) {
 		for (let j = 0; j < matrix[i].length; j++) {
-			console.log(document.getElementById("0-0")); // TEST
-			// var cell = document.getElementById(i + "-" + j);
-			// if (matrix[i][j] == true) {
-			// 	cell.style.backgroundColor = "black";
-			// }
-			// else {
-			// 	cell.style.backgroundColor = "white";
-			// }
+			var cell = document.getElementById(i + "-" + j);
+			if (matrix[i][j] == true) {
+				cell.style.backgroundColor = "black";
+			}
+			else {
+				cell.style.backgroundColor = "white";
+			}
 		}
 	}
 }
 
-// STOP LOOP (MARCHE PAS, CHANGE L'ALGO !!)
 function ConwayStop() {
 	if (!(typeof conwayTimeout === 'undefined' || conwayTimeout === null)) {
 		clearTimeout(conwayTimeout);

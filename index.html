@@ -2,26 +2,17 @@
 	<head>
 		<script src="conway.js" type="text/javascript"></script>
 	</head>
-	<style>
-		#table_conway {
-			margin : 0 auto 0 auto;
-			border-collapse: collapse;
-			-webkit-border-horizontal-spacing: 4px;
-			-webkit-border-vertical-spacing: 4px;
-			border-spacing: 4px;
-		}
-	</style>
+	<link href="styles.css" rel="stylesheet" />
 	<body>
-		<article id="article_conway" style="text-align:center;">
+		<article id="article_conway">
 			<form id="form_conway">
-				<input type="button" value="start" onclick="ConwayStart(maxIterations=1);">
-				<input type="button" value="reset randomly" onclick="ConwayGenerateTable(nb_rows=100, nb_cols=80, black_probability=0.2);">
+				<input type="button" value="start" onclick="ConwayStart(maxIterations=100);">
+				<input type="button" value="stop" onclick="ConwayStop();">
+				<input type="button" value="reset randomly" onclick="ConwayGenerateTable(nb_rows=50, nb_cols=40, black_probability=0.2);">
 			</form>
-			<br>
 			<script type="text/javascript">
-				ConwayGenerateTable(nb_rows=100, nb_cols=80);
+				ConwayGenerateTable(nb_rows=50, nb_cols=40);
 			</script>
-			<br>
 		</article>
 	</body>
 </html>
