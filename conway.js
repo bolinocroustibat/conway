@@ -19,8 +19,9 @@ function ConwayGenerateTable(nb_rows, nb_cols, black_probability) {
 			// node the contents of the <td>, and put the <td> at
 			// the end of the table_conway row
 			let cell = document.createElement("td");
-			let cellText = document.createTextNode(" ");
-			cell.appendChild(cellText);
+			cell.setAttribute("id", i + "-" + j);
+			// let cellText = document.createTextNode(" ");
+			// cell.appendChild(cellText);
 			cell.style.border = "1px solid black";
 			cell.style.width = '4px';
 			cell.style.height = '4px';
@@ -143,41 +144,19 @@ function ConwayBuildNextMatrix(currentMatrix) {
 }
 
 function ConwayDrawTableFromMatrix(matrix) {
-	// if there is already a table conway_table, removes it
-	let existing_conway_table = document.getElementById("table_conway");
-	if (!(existing_conway_table === 'undefined' || existing_conway_table === null)) {
-		existing_conway_table.parentNode.removeChild(existing_conway_table);
-	}
-	// creates a <table_conway> element and style it
-	let table_conway = document.createElement("table");
-	table_conway.setAttribute("id", "table_conway");
-	table_conway.style.margin = "0 auto 0 auto";
-	table_conway.style.borderCollapse = "collapse";
+	console.log(document.getElementById("table_conway")); // TEST
 	for (let i = 0; i < matrix.length; i++) {
-		// creates a table_conway row
-		let row = document.createElement("tr");
 		for (let j = 0; j < matrix[i].length; j++) {
-			// Create a <td> element and a text node, make the text
-			// node the contents of the <td>, and put the <td> at
-			// the end of the table_conway row
-			let cell = document.createElement("td");
-			let cellText = document.createTextNode(" ");
-			cell.appendChild(cellText);
-			cell.style.border = "1px solid black";
-			cell.style.width = '4px';
-			cell.style.height = '4px';
-			if (matrix[i][j] == true) {
-				cell.style.backgroundColor = "black";
-			}
-			else {
-				cell.style.backgroundColor = "white";
-			}
-			row.appendChild(cell);
+			console.log(document.getElementById("0-0")); // TEST
+			// var cell = document.getElementById(i + "-" + j);
+			// if (matrix[i][j] == true) {
+			// 	cell.style.backgroundColor = "black";
+			// }
+			// else {
+			// 	cell.style.backgroundColor = "white";
+			// }
 		}
-		table_conway.appendChild(row);
 	}
-	// appends <table_conway> into <article>
-	document.getElementById("article_conway").appendChild(table_conway);
 }
 
 // STOP LOOP (MARCHE PAS, CHANGE L'ALGO !!)
