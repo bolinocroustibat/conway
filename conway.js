@@ -32,7 +32,7 @@ function ConwayGenerateTable(nb_rows, nb_cols, black_probability) {
 			// manual populating
 			cell.onclick = function () {
 				console.log("cell " + i + " , " + j);
-				cell.style.backgroundColor = "white" ? cell.style.backgroundColor = "black" : cell.style.backgroundColor = "white";
+				cell.style.backgroundColor == "white" ? cell.style.backgroundColor = "black" : cell.style.backgroundColor = "white";
 			};
 			// add cell to row
 			row.appendChild(cell);
@@ -144,7 +144,6 @@ function ConwayBuildNextMatrix(currentMatrix) {
 
 function ConwayDrawTableFromMatrix(matrix) {
 	//console.log(document.getElementById("table_conway")); // TEST
-	console.log(matrix)
 	for (let i = 0; i < matrix.length; i++) {
 		for (let j = 0; j < matrix[i].length; j++) {
 			var cell = document.getElementById(i + "-" + j);
@@ -162,4 +161,8 @@ function ConwayStop() {
 	if (!(typeof conwayTimeout === 'undefined' || conwayTimeout === null)) {
 		clearTimeout(conwayTimeout);
 	}
+}
+
+function ConwayReset() {
+	ConwayGenerateTable(nb_rows=50, nb_cols=40);
 }
