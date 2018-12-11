@@ -14,8 +14,8 @@
 	margin-bottom: 20px;
 }
 
-td{
-	border: solid 1px black;
+#table_conway td{
+	border: solid 1px #DDD;
 	width: 5px;
 	height: 5px;
 	padding: 0;

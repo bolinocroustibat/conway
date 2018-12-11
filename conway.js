@@ -13,10 +13,10 @@ function ConwayGenerateTable(nb_rows, nb_cols, black_probability) {
 	let table_conway = document.createElement("table");
 	table_conway.setAttribute("id", "table_conway");
 	// Creates all cells
-	for (let i = 0; i < nb_rows; i++) {
+	for (let i = 0; i < nb_rows; ++i) {
 		// Creates a table_conway row
 		let row = document.createElement("tr");
-		for (let j = 0; j < nb_cols; j++) {
+		for (let j = 0; j < nb_cols; ++j) {
 			// Creates a <td> element and gives it an ID
 			let cell = document.createElement("td");
 			cell.setAttribute("id", i + "-" + j);
@@ -25,9 +25,7 @@ function ConwayGenerateTable(nb_rows, nb_cols, black_probability) {
 			// cell.appendChild(cellText);
 			cell.style.backgroundColor = 'white';
 			// Random populating
-			if (black_probability) {
-				Math.random() >= black_probability ? cell.style.backgroundColor = "white" : cell.style.backgroundColor = "black";
-			}
+			if (black_probability && Math.random() <= black_probability) cell.style.backgroundColor = "black";
 			// Manual populating
 			cell.onclick = function () {
 				console.log("cell " + i + " , " + j);
@@ -40,17 +38,17 @@ function ConwayGenerateTable(nb_rows, nb_cols, black_probability) {
 	document.getElementById("article_conway").appendChild(table_conway); // appends <table_conway> into <article>
 }
 
-function ConwayStart(maxIterations){
+function ConwayStart(maxIterations=30){
 	let startMatrix = ConwayBuildCurrentMatrix();
-	ConwayLoop(startMatrix, maxIterations);
+	ConwayLoop(startMatrix, maxIterations, i=0);
 }
 
-function ConwayLoop(matrix, maxIterations=30, i=0){
+function ConwayLoop(matrix, maxIterations, i){
 	matrix = ConwayBuildNextMatrix(matrix);
 	ConwayDrawTableFromMatrix(matrix);
 	conwayTimeout = setTimeout(function() {
 		ConwayLoop(matrix, maxIterations, i)
-	}, 30);
+	}, 50);
 	// console.log("##########")
 	// console.log("ITERATION " + i);
 	if (i>=maxIterations) clearTimeout(conwayTimeout);
@@ -62,9 +60,9 @@ function ConwayBuildCurrentMatrix() {
 	let table_conway = document.getElementById("table_conway");
 	let nb_rows = table_conway.rows.length;
 	let nb_cols = table_conway.rows[0].cells.length;
-	for (let i = 0; i < nb_rows; i++) {
+	for (let i = 0; i < nb_rows; ++i) {
 		currentMatrix.push([]);
-		for (let j = 0; j < nb_cols; j++) {
+		for (let j = 0; j < nb_cols; ++j) {
 			table_conway.rows[i].cells[j].style.backgroundColor === "black" ? currentMatrix[i].push(true) : currentMatrix[i].push(false);
 		}
 	}
@@ -76,9 +74,9 @@ function ConwayBuildCurrentMatrix() {
 function ConwayBuildNextMatrix(currentMatrix) {
 	let nextMatrix = [];
 	// for each cell
-	for (let i = 0; i < currentMatrix.length; i++) {
+	for (let i = 0; i < currentMatrix.length; ++i) {
 		nextMatrix.push([]);
-		for (let j = 0; j < currentMatrix[i].length; j++) {
+		for (let j = 0; j < currentMatrix[i].length; ++j) {
 			// gather all neighbors info
 			var neighborsArray = [];
 			// top neighbors
@@ -133,8 +131,8 @@ function ConwayBuildNextMatrix(currentMatrix) {
 
 function ConwayDrawTableFromMatrix(matrix) {
 	//console.log(document.getElementById("table_conway")); // TEST
-	for (let i = 0; i < matrix.length; i++) {
-		for (let j = 0; j < matrix[i].length; j++) {
+	for (let i = 0; i < matrix.length; ++i) {
+		for (let j = 0; j < matrix[i].length; ++j) {
 			let cell = document.getElementById(i + "-" + j);
 			matrix[i][j] == true ? cell.style.backgroundColor = "black" : cell.style.backgroundColor = "white";
 		}
