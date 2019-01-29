@@ -1,20 +1,20 @@
-#article_conway {
+#article-conway {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 }
 
-#table_conway {
+#table-conway {
 	border-collapse: collapse;
 	margin: 0 auto;
 	box-sizing: border-box;
 }
 
-#form_conway {
+#form-conway {
 	margin-bottom: 20px;
 }
 
-#table_conway td{
+#table-conway td{
 	border: solid 1px #DDD;
 	width: 5px;
 	height: 5px;

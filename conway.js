@@ -5,16 +5,16 @@ function ConwayGenerateTable(nb_rows, nb_cols, black_probability) {
 		clearTimeout(conwayTimeout);
 	}
 	// if there is already a table conway_table, removes it
-	let existing_conway_table = document.getElementById("table_conway");
+	let existing_conway_table = document.getElementById("table-conway");
 	if (!(existing_conway_table === 'undefined' || existing_conway_table === null)) {
 		existing_conway_table.parentNode.removeChild(existing_conway_table);
 	}
 	// Creates a <table_conway> element
 	let table_conway = document.createElement("table");
-	table_conway.setAttribute("id", "table_conway");
+	table_conway.setAttribute("id", "table-conway");
 	// Creates all cells
 	for (let i = 0; i < nb_rows; ++i) {
-		// Creates a table_conway row
+		// Creates a table-conway row
 		let row = document.createElement("tr");
 		for (let j = 0; j < nb_cols; ++j) {
 			// Creates a <td> element and gives it an ID
@@ -35,7 +35,7 @@ function ConwayGenerateTable(nb_rows, nb_cols, black_probability) {
 		}
 		table_conway.appendChild(row); // add row to table
 	}
-	document.getElementById("article_conway").appendChild(table_conway); // appends <table_conway> into <article>
+	document.getElementById("article-conway").appendChild(table_conway); // appends <table-conway> into <article>
 }
 
 function ConwayStart(maxIterations=30){
@@ -57,7 +57,7 @@ function ConwayLoop(matrix, maxIterations, i){
 
 function ConwayBuildCurrentMatrix() {
 	let currentMatrix = [];
-	let table_conway = document.getElementById("table_conway");
+	let table_conway = document.getElementById("table-conway");
 	let nb_rows = table_conway.rows.length;
 	let nb_cols = table_conway.rows[0].cells.length;
 	for (let i = 0; i < nb_rows; ++i) {
@@ -130,7 +130,7 @@ function ConwayBuildNextMatrix(currentMatrix) {
 }
 
 function ConwayDrawTableFromMatrix(matrix) {
-	//console.log(document.getElementById("table_conway")); // TEST
+	//console.log(document.getElementById("table-conway")); // TEST
 	for (let i = 0; i < matrix.length; ++i) {
 		for (let j = 0; j < matrix[i].length; ++j) {
 			let cell = document.getElementById(i + "-" + j);
