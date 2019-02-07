@@ -4,17 +4,17 @@ function ConwayGenerateTable(nb_rows, nb_cols, black_probability) {
 	if (!(typeof conwayTimeout === 'undefined' || conwayTimeout === null)) {
 		clearTimeout(conwayTimeout);
 	}
-	// if there is already a table conway_table, removes it
+	// If there is already a table conway_table, remove it
 	let existing_conway_table = document.getElementById("table-conway");
 	if (!(existing_conway_table === 'undefined' || existing_conway_table === null)) {
 		existing_conway_table.parentNode.removeChild(existing_conway_table);
 	}
-	// Creates a <table_conway> element
+	// Create a <table> element
 	let table_conway = document.createElement("table");
 	table_conway.setAttribute("id", "table-conway");
-	// Creates all cells
+	// Create all cells
 	for (let i = 0; i < nb_rows; ++i) {
-		// Creates a table-conway row
+		// Create a table-conway row
 		let row = document.createElement("tr");
 		for (let j = 0; j < nb_cols; ++j) {
 			// Creates a <td> element and gives it an ID
@@ -31,11 +31,11 @@ function ConwayGenerateTable(nb_rows, nb_cols, black_probability) {
 				console.log("cell " + i + " , " + j);
 				cell.style.backgroundColor == "white" ? cell.style.backgroundColor = "black" : cell.style.backgroundColor = "white";
 			};
-			row.appendChild(cell); // add cell to row
+			row.appendChild(cell); // Add cell to row
 		}
-		table_conway.appendChild(row); // add row to table
+		table_conway.appendChild(row); // Add row to table
 	}
-	document.getElementById("article-conway").appendChild(table_conway); // appends <table-conway> into <article>
+	document.getElementById("article-conway").appendChild(table_conway); // Append <table-conway> into <article>
 }
 
 function ConwayStart(maxIterations=30){
@@ -49,8 +49,7 @@ function ConwayLoop(matrix, maxIterations, i){
 	conwayTimeout = setTimeout(function() {
 		ConwayLoop(matrix, maxIterations, i)
 	}, 50);
-	// console.log("##########")
-	// console.log("ITERATION " + i);
+	// console.log("Iteration " + i); // debug
 	if (i>=maxIterations) clearTimeout(conwayTimeout);
 	i++;
 }
@@ -66,8 +65,8 @@ function ConwayBuildCurrentMatrix() {
 			table_conway.rows[i].cells[j].style.backgroundColor === "black" ? currentMatrix[i].push(true) : currentMatrix[i].push(false);
 		}
 	}
-	// console.log("CURRENT SITUATION:");
-	// console.log(currentMatrix);
+	// console.log('Current situation:'); // debug
+	// console.log(currentMatrix); // debug
 	return currentMatrix;
 }
 
@@ -77,9 +76,9 @@ function ConwayBuildNextMatrix(currentMatrix) {
 	for (let i = 0; i < currentMatrix.length; ++i) {
 		nextMatrix.push([]);
 		for (let j = 0; j < currentMatrix[i].length; ++j) {
-			// gather all neighbors info
+			// Gather all neighbors info
 			var neighborsArray = [];
-			// top neighbors
+			// Top neighbors
 			if (currentMatrix[i-1]) {
 				if (currentMatrix[i-1][j-1] && currentMatrix[i-1][j-1]==true) {
 					neighborsArray.push(true);
@@ -91,14 +90,14 @@ function ConwayBuildNextMatrix(currentMatrix) {
 					neighborsArray.push(true);
 				}
 			}
-			// left and right neighbors
+			// Left and right neighbors
 			if (currentMatrix[i][j-1] && currentMatrix[i][j-1]==true) {
 				neighborsArray.push(true);
 			}
 			if (currentMatrix[i][j+1] && currentMatrix[i][j+1]==true) {
 				neighborsArray.push(true);
 			}
-			// down neighbors
+			// Down neighbors
 			if (currentMatrix[i+1]) {
 				if (currentMatrix[i+1][j-1] && currentMatrix[i+1][j-1]==true) {
 					neighborsArray.push(true);
@@ -110,18 +109,18 @@ function ConwayBuildNextMatrix(currentMatrix) {
 					neighborsArray.push(true);
 				}
 			}
-			// console.log("row " + i + " | column " + j);
-			// console.log(neighborsArray);
-			// analyse neighbors info
+			// console.log("row " + i + " | column " + j); // debug
+			// console.log(neighborsArray); // debug
+			// Analyse neighbors info
 			let nb_true = neighborsArray.filter(Boolean).length;
-			// change the nextTable according to the neighbors
-			if (currentMatrix[i][j]==true && (nb_true < 2 || nb_true > 3)) { // death of an an alive cell
+			// Change the nextTable according to the neighbors
+			if (currentMatrix[i][j]==true && (nb_true < 2 || nb_true > 3)) { // Death of an an alive cell
 				nextMatrix[i].push(false);
 			}
-			else if (currentMatrix[i][j] == false && nb_true == 3) { // birth of a cell
+			else if (currentMatrix[i][j] == false && nb_true == 3) { // Birth of a cell
 				nextMatrix[i].push(true);
 			}
-			else { // keep the same cell
+			else { // Keep the same cell
 				nextMatrix[i].push(currentMatrix[i][j]);
 			}
 		}
@@ -130,7 +129,7 @@ function ConwayBuildNextMatrix(currentMatrix) {
 }
 
 function ConwayDrawTableFromMatrix(matrix) {
-	//console.log(document.getElementById("table-conway")); // TEST
+	// console.log(document.getElementById("table-conway")); // debug
 	for (let i = 0; i < matrix.length; ++i) {
 		for (let j = 0; j < matrix[i].length; ++j) {
 			let cell = document.getElementById(i + "-" + j);
